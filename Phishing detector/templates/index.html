@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phishing URL Detector</title>
+
+<style>
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: Arial;
+    color: white;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.container {
+    background: rgba(0,0,0,0.5);
+    padding: 30px;
+    border-radius: 12px;
+    display: inline-block;
+    width: 420px;
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+.tagline {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 10px;
+    width: 85%;
+    border-radius: 6px;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    background: #00c6ff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0072ff;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.safe { color: #00ffcc; }
+.phishing { color: #ff4d4d; }
+
+.risk {
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.reason {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.warning {
+    margin-top: 10px;
+    color: #ffd166;
+    font-size: 14px;
+}
+
+.ai-box {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #ddd;
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+td {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 6px;
+    word-break: break-all;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🔐 Phishing URL Detector</h2>
+    <div class="tagline">Detect malicious URLs and prevent phishing attacks</div>
+
+    <form method="post">
+        <input type="text" name="url" placeholder="Enter URL..." required>
+        <br><br>
+        <button type="submit">Check 🔍</button>
+    </form>
+
+    {% if result %}
+        <div class="result {% if result == 'Safe' %}safe{% else %}phishing{% endif %}">
+            {{ result }}
+        </div>
+
+        <div class="risk">{{ risk }}</div>
+
+        <div class="reason">{{ reason }}</div>
+
+        <div class="reason">Reputation Score: {{ reputation }}</div>
+
+        <div class="warning">{{ advice }}</div>
+
+        <div class="ai-box">
+            <b>AI Analysis:</b><br>
+            {{ ai_explanation }}
+        </div>
+    {% endif %}
+
+    <h3>Recent Checks</h3>
+
+    <table>
+        {% for u, r in history %}
+        <tr>
+            <td>{{ u }}</td>
+            <td>{{ r }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
